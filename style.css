@@ -9,6 +9,7 @@ body {
 html {
   font-size: 10px;
   height: 100%;
+  width: 100%;
 }
 
 body {
@@ -92,6 +93,10 @@ nav a {
   text-transform: uppercase;
   text-decoration: none;
   color: black;
+}
+
+nav a:hover {
+  background-color: silver;
 }
 
 nav form {
