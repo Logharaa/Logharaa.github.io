@@ -8,13 +8,16 @@ body {
 
 html {
   font-size: 10px;
+  height: 100%;
 }
 
 body {
   width: 70%;
   margin: 0 auto;
-  background-color: #4158D0;
-  background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+  background-color: #8BC6EC;
+background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+
+
 }
 
 /* || typography */
@@ -61,13 +64,13 @@ nav,
 article,
 aside,
 footer {
-  background-color: white;
+  background-color: gainsboro;
   padding: 1%;
 }
 
 nav {
   height: 50px;
-  background-color: #ff80ff;
+  background-color: gainsboro;
   display: flex;
   margin-bottom: 10px;
 }
@@ -131,7 +134,7 @@ article {
 aside {
   flex: 1;
   margin-left: 10px;
-  background-color: #ff80ff;
+  background-color: gainsboro;
 }
 
 aside li {
