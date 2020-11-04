@@ -69,10 +69,12 @@ aside,
 footer {
   background-color: gainsboro;
   padding: 1%;
+  border-radius: 8px;
 }
 
 nav {
   height: 50px;
+  border-radius: 40px;
   background-color: gainsboro;
   display: flex;
   margin-bottom: 10px;
