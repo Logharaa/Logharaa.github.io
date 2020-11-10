@@ -9,7 +9,7 @@
 
 </head>
 
-<body onload="init()">
+<body>
     <header>
         <h1>JS</h1>
     </header>
@@ -33,6 +33,7 @@
     </footer>
 
     <script type="text/javascript">
+
         function rectangle(x, y, w, h, canvas) {
             this.canvas = canvas;
             this.canvas2dContext = this.canvas.getContext("2d");
@@ -59,13 +60,13 @@
                 rectangle1.canvas2dContext.clearRect(0, 0, rectangle1.canvas.width, rectangle1.canvas.height);
                 rectangle1.affiche();
 
-                if (valeur === 0) {
+                if (rectangle1.x >= rectangle1.canvas.width) {
                     clearInterval(intervalId);
                 }
             }, 100);
         }
 
-        //window.addEventListener('load', init());
+        window.addEventListener('load', init());
     </script>
 
 </body>
