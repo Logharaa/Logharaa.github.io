@@ -7,38 +7,6 @@
     <title>JS</title>
     <link rel="stylesheet" type="text/css" href="../style.css">
 
-    <script type="text/javascript">
-        function rectangle(x, y, w, h, canvas) {
-            this.canvas = canvas;
-            this.canvas2dContext = this.canvas.getContext("2d");
-            this.x = x;
-            this.y = y;
-            this.w = w;
-            this.h = h;
-            this.affiche = affiche;
-        }
-
-        function affiche() {
-            this.canvas2dContext.rect(this.x, this.y, this.w, this.h);
-            this.canvas2dContext.fillStyle = "red";
-            this.canvas2dContext.fill();
-        }
-
-        function init() {
-            canvas = document.getElementById("myCanvas");
-            rectangle1 = new rectangle(0, 0, 100, 100, canvas);
-            rectangle1.affiche();
-
-            let intervalID = setInterval(function() {
-                rectangle1.x += 10;
-                rectangle1.canvas2dContext.clearRect(0, 0, 1000, 200);
-                rectangle1.affiche();
-                console.log("test");
-            }, 100);
-        }
-
-        //window.addEventListener('load', init());
-    </script>
 </head>
 
 <body onload="init()">
@@ -63,6 +31,42 @@
     <footer>
         <p>© 2020 Gaël Meheust - Tous droits réservés.</p>
     </footer>
+
+    <script type="text/javascript">
+        function rectangle(x, y, w, h, canvas) {
+            this.canvas = canvas;
+            this.canvas2dContext = this.canvas.getContext("2d");
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+            this.affiche = affiche;
+        }
+
+        function affiche() {
+            this.canvas2dContext.rect(this.x, this.y, this.w, this.h);
+            this.canvas2dContext.fillStyle = "red";
+            this.canvas2dContext.fill();
+        }
+
+        function init() {
+            canvas = document.getElementById("myCanvas");
+            rectangle1 = new rectangle(0, 0, 100, 100, canvas);
+            rectangle1.affiche();
+
+            let intervalID = setInterval(function() {
+                rectangle1.x += 10;
+                rectangle1.canvas2dContext.clearRect(0, 0, rectangle1.canvas.width, rectangle1.canvas.height);
+                rectangle1.affiche();
+
+                if (valeur === 0) {
+                    clearInterval(intervalId);
+                }
+            }, 100);
+        }
+
+        //window.addEventListener('load', init());
+    </script>
 
 </body>
 

@@ -6,27 +6,6 @@
 
     <title>JS</title>
     <link rel="stylesheet" type="text/css" href="../style.css">
-
-    <script type="text/javascript">
-
-        function init() {
-            const chiffre = document.getElementById("compteur");
-            let valeur = 10;
-            chiffre.innerHTML = valeur;
-
-            let intervalId = setInterval(function() {
-                valeur -= 1;
-                chiffre.innerHTML = valeur;
-
-                if (valeur === 0) {
-                    clearInterval(intervalId);
-                }
-            }, 1000);
-        }
-
-        window.addEventListener('load', init());
-
-    </script>
 </head>
 
 <body onload='init()'>
@@ -51,6 +30,27 @@
     <footer>
         <p>© 2020 Gaël Meheust - Tous droits réservés.</p>
     </footer>
+
+    <script type="text/javascript">
+
+        function init() {
+            const chiffre = document.getElementById("compteur");
+            let valeur = 10;
+            chiffre.innerHTML = valeur;
+
+            let intervalId = setInterval(function() {
+                valeur -= 1;
+                chiffre.innerHTML = valeur;
+
+                if (valeur <= 0) {
+                    clearInterval(intervalId);
+                }
+            }, 1000);
+        }
+
+        window.addEventListener('load', init());
+
+    </script>
 
 </body>
 
