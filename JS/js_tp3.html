@@ -18,7 +18,7 @@
         <ul>
             <li><a href="js_tp0.html">TP0</a></li>
             <li><a href="js_tp1.html">TP1</a></li>
-            <li><a href="js_tp3.html">TP3</a></li>
+            <li><a href="js_tp2.html">TP2</a></li>
             <li><a href="js_tp4.html">TP4</a></li>
             <li><a href="../index.html">Accueil</a></li>
         </ul>
@@ -69,7 +69,9 @@
             }, 100);
         }
 
-        window.addEventListener('load', init());
+        window.addEventListener('load', function() {
+            setTimeout(init, 2000);
+        });
         
     </script>
 

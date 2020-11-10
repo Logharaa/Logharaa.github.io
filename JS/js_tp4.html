@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>JS</title>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+
+</head>
+
+<body>
+    <header>
+        <h1>JS</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="js_tp0.html">TP0</a></li>
+            <li><a href="js_tp1.html">TP1</a></li>
+            <li><a href="js_tp2.html">TP2</a></li>
+            <li><a href="js_tp3.html">TP3</a></li>
+            <li><a href="../index.html">Accueil</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <article>
+            <canvas id="myCanvas" width="1000" height="400"></canvas>
+        </article>
+    </main>
+
+    <footer>
+        <p>© 2020 Gaël Meheust - Tous droits réservés.</p>
+    </footer>
+
+    <script type="text/javascript">
+
+        function rectangle(x, y, w, h, canvas) {
+            this.canvas = canvas;
+            this.canvas2dContext = this.canvas.getContext("2d");
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+            this.affiche = affiche;
+            this.moveRight = moveRight;
+        }
+
+        function affiche() {
+            this.canvas2dContext.beginPath();
+            this.canvas2dContext.rect(this.x, this.y, this.w, this.h);
+            this.canvas2dContext.fillStyle = "red";
+            this.canvas2dContext.fill();
+        }
+
+        function moveRight() {
+            this.x += 10;
+            this.canvas2dContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.affiche();
+        }
+
+        function init() {
+            canvas = document.getElementById("myCanvas");
+            rectangle1 = new rectangle(0, 0, 100, 100, canvas);
+            rectangle2 = new rectangle(0, 150, 100, 100, canvas);
+            rectangle3 = new rectangle(0, 300, 100, 100, canvas);
+            rectangle1.affiche();
+            rectangle2.affiche();
+            rectangle3.affiche();
+
+            setTimeout(function() {
+                let timer = setInterval(function() {
+                    rectangle1.moveRight();
+
+                    if (rectangle1.x >= rectangle1.canvas.width) {
+                        clearInterval(timer);
+                    }
+                }, 100)
+            }, 1000);
+
+            setTimeout(function() {
+                let timer = setInterval(function() {
+                    rectangle2.moveRight();
+
+                    if (rectangle2.x >= rectangle2.canvas.width) {
+                        clearInterval(timer);
+                    }
+                }, 100)
+            }, 2000);
+
+            setTimeout(function() {
+                let timer = setInterval(function() {
+                    rectangle3.moveRight();
+
+                    if (rectangle3.x >= rectangle3.canvas.width) {
+                        clearInterval(timer);
+                    }
+                }, 100)
+            }, 3000);
+        }
+
+        window.addEventListener('load', init);
+        
+    </script>
+
+</body>
+
+</html>
