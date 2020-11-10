@@ -19,27 +19,29 @@
         }
 
         function affiche() {
-            this.canvas2dContext.beginPath();
-            this.canvas2dContext.arc(this.x, this.y, 5, 0, 2 * Math.PI, false);
-            this.canvas2dContext.fillStyle = "black";
+            this.canvas2dContext.rect(this.x, this.y, this.w, this.h);
+            this.canvas2dContext.fillStyle = "red";
             this.canvas2dContext.fill();
         }
 
         function init() {
-            canvas = document.getElementById('myCanvas');
-            for (i = 1; i < 10; ++i) {
-                for (j = 1; j < 10; ++j) {
-                    point1 = new point(20 * i, 20 * j, myCanvas);
-                    point1.affiche();
-                }
-            }
+            canvas = document.getElementById("myCanvas");
+            rectangle1 = new rectangle(0, 0, 100, 100, canvas);
+            rectangle1.affiche();
+
+            let intervalID = setInterval(function() {
+                rectangle1.x += 10;
+                rectangle1.canvas2dContext.clearRect(0, 0, 1000, 200);
+                rectangle1.affiche();
+                console.log("test");
+            }, 100);
         }
 
-        window.addEventListener('load', init());
+        //window.addEventListener('load', init());
     </script>
 </head>
 
-<body>
+<body onload="init()">
     <header>
         <h1>JS</h1>
     </header>
@@ -54,7 +56,7 @@
 
     <main>
         <article>
-            <canvas id="myCanvas" width="200" height="200"></canvas>
+            <canvas id="myCanvas" width="1000" height="200"></canvas>
         </article>
     </main>
 
