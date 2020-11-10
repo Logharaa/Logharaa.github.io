@@ -6,25 +6,24 @@
 
     <title>JS</title>
     <link rel="stylesheet" type="text/css" href="../style.css">
-
 </head>
 
-<body onload='init()'>
+<body>
     <header>
         <h1>JS</h1>
     </header>
 
     <nav>
         <ul>
+            <li><a href="js_tp0.html">TP0</a></li>
             <li><a href="js_tp2.html">TP2</a></li>
-            <li><a href="js_tp3.html">TP3</a></li>
             <li><a href="../index.html">Accueil</a></li>
         </ul>
     </nav>
 
     <main>
         <article>
-            <canvas id="myCanvas" width="200" height="200"></canvas>
+            <p id="compteur"></p>
         </article>
     </main>
 
@@ -33,31 +32,26 @@
     </footer>
 
     <script type="text/javascript">
-        function point(x, y, canvas) {
-            this.canvas = canvas;
-            this.canvas2dContext = this.canvas.getContext("2d");
-            this.x = x;
-            this.y = y;
-            this.affiche = affiche;
-        }
-
-        function affiche() {
-            this.canvas2dContext.beginPath();
-            this.canvas2dContext.arc(this.x, this.y, 5, 0, 2 * Math.PI, false);
-            this.canvas2dContext.fillStyle = "black";
-            this.canvas2dContext.fill();
-        }
 
         function init() {
-            canvas = document.getElementById('myCanvas');
-            for (i = 1; i < 10; ++i) {
-                for (j = 1; j < 10; ++j) {
-                    point1 = new point(20 * i, 20 * j, myCanvas);
-                    point1.affiche();
+            const chiffre = document.getElementById("compteur");
+            let valeur = 10;
+            chiffre.innerHTML = valeur;
+
+            let intervalId = setInterval(function() {
+                valeur -= 1;
+                chiffre.innerHTML = valeur;
+
+                if (valeur <= 0) {
+                    clearInterval(intervalId);
                 }
-            }
+            }, 1000);
         }
+
+        window.addEventListener('load', init());
+
     </script>
+
 </body>
 
 </html>

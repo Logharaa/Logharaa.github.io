@@ -6,6 +6,7 @@
 
     <title>JS</title>
     <link rel="stylesheet" type="text/css" href="../style.css">
+
 </head>
 
 <body>
@@ -15,15 +16,15 @@
 
     <nav>
         <ul>
+            <li><a href="js_tp0.html">TP0</a></li>
             <li><a href="js_tp1.html">TP1</a></li>
-            <li><a href="js_tp3.html">TP3</a></li>
             <li><a href="../index.html">Accueil</a></li>
         </ul>
     </nav>
 
     <main>
         <article>
-            <p id="compteur"></p>
+            <canvas id="myCanvas" width="1000" height="200"></canvas>
         </article>
     </main>
 
@@ -33,23 +34,41 @@
 
     <script type="text/javascript">
 
+        function rectangle(x, y, w, h, canvas) {
+            this.canvas = canvas;
+            this.canvas2dContext = this.canvas.getContext("2d");
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+            this.affiche = affiche;
+        }
+
+        function affiche() {
+            this.canvas2dContext.beginPath();
+            this.canvas2dContext.rect(this.x, this.y, this.w, this.h);
+            this.canvas2dContext.fillStyle = "red";
+            this.canvas2dContext.fill();
+        }
+
         function init() {
-            const chiffre = document.getElementById("compteur");
-            let valeur = 10;
-            chiffre.innerHTML = valeur;
+            canvas = document.getElementById("myCanvas");
+            rectangle1 = new rectangle(0, 0, 100, 100, canvas);
+            rectangle1.affiche();
 
-            let intervalId = setInterval(function() {
-                valeur -= 1;
-                chiffre.innerHTML = valeur;
-
-                if (valeur <= 0) {
+            let intervalID = setInterval(function() {
+                rectangle1.x += 10;
+                rectangle1.canvas2dContext.clearRect(0, 0, rectangle1.canvas.width, rectangle1.canvas.height);
+                rectangle1.affiche();
+                
+                if (rectangle1.x >= rectangle1.canvas.width) {
                     clearInterval(intervalId);
                 }
-            }, 1000);
+            }, 100);
         }
 
         window.addEventListener('load', init());
-
+        
     </script>
 
 </body>
