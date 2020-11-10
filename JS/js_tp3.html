@@ -45,6 +45,7 @@
         }
 
         function affiche() {
+            this.canvas2dContext.beginPath();
             this.canvas2dContext.rect(this.x, this.y, this.w, this.h);
             this.canvas2dContext.fillStyle = "red";
             this.canvas2dContext.fill();
@@ -59,7 +60,7 @@
                 rectangle1.x += 10;
                 rectangle1.canvas2dContext.clearRect(0, 0, rectangle1.canvas.width, rectangle1.canvas.height);
                 rectangle1.affiche();
-
+                
                 if (rectangle1.x >= rectangle1.canvas.width) {
                     clearInterval(intervalId);
                 }
