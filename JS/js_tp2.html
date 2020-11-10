@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>JS</title>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+
+    <script type="text/javascript">
+
+        function init() {
+            const chiffre = document.getElementById("compteur");
+            let valeur = 10;
+            chiffre.innerHTML = valeur;
+
+            let intervalId = setInterval(function() {
+                valeur -= 1;
+                chiffre.innerHTML = valeur;
+
+                if (valeur === 0) {
+                    clearInterval(intervalId);
+                }
+            }, 1000);
+        }
+
+        window.addEventListener('load', init());
+
+    </script>
+</head>
+
+<body onload='init()'>
+    <header>
+        <h1>JS</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="js_tp1.html">TP1</a></li>
+            <li><a href="js_tp3.html">TP3</a></li>
+            <li><a href="../index.html">Accueil</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <article>
+            <p id="compteur"></p>
+        </article>
+    </main>
+
+    <footer>
+        <p>© 2020 Gaël Meheust - Tous droits réservés.</p>
+    </footer>
+
+</body>
+
+</html>
