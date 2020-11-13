@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>JS avancé</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>JS avancé</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <article>
+            <div id="animatedElem" style="position:relative;width:100px;height:100px;background-color:#f00;left:500px"></div>
+        </article>
+    </main>
+
+    <footer>
+        <p>© 2020 Gaël Meheust - Tous droits réservés.</p>
+    </footer>
+
+    <script type="text/javascript">
+
+        function moveSquare()
+        {
+            const elem = document.getElementById("animatedElem");
+            let left = 500;
+            let timer;
+
+            // Move the element 10px on the right every 16ms
+            timer = setInterval(function ()
+                {
+                    elem.style.left = (left -= 10) + "px";
+                    // clear the timer at 400px to stop the animation
+                    if (left <= 0) {
+                        clearInterval(timer);
+                    }
+                },
+                16
+            );
+        }
+
+        window.addEventListener("load", moveSquare);
+
+    </script>
+
+</body>
+
+</html>
