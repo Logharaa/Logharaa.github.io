@@ -36,71 +36,70 @@
 
     <script type="text/javascript">
 
-        function rectangle(x, y, w, h, canvas) {
-            this.canvas = canvas;
-            this.canvas2dContext = this.canvas.getContext("2d");
+        function draw()
+        {
+            const canvas = document.getElementById("myCanvas");
+            const context2d = canvas.getContext("2d");
+            
+            const rectangle1 = new Rectangle(0, 0, 100, 100, "red", canvas, 1000);
+            const rectangle2 = new Rectangle(0, 150, 100, 100, "red", canvas, 2000);
+            const rectangle3 = new Rectangle(0, 300, 100, 100, "red", canvas, 3000);
+
+            rectangle1.afficheRectangle();
+            rectangle2.afficheRectangle();
+            rectangle3.afficheRectangle();
+            
+            let timer = setInterval(function()
+                {
+                    context2d.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    context2d.beginPath();
+                    rectangle1.deplacerDroite(10);
+                    rectangle2.deplacerDroite(10);
+                    rectangle3.deplacerDroite(10);
+
+                    if (rectangle1.estHorsDuCanvas() && rectangle2.estHorsDuCanvas() && rectangle3.estHorsDuCanvas()) {
+                        clearInterval(timer);
+                        console.log("Fin de la boucle de dessin");
+                    }
+                },
+                100
+            );
+        }
+
+        function Rectangle(x, y, w, h, color, canvas, delaiAffichage)
+        {
             this.x = x;
             this.y = y;
             this.w = w;
             this.h = h;
-            this.affiche = affiche;
-            this.moveRight = moveRight;
+            this.color = color;
+            this.context2d = canvas.getContext("2d");
+
+            this.afficheRectangle = function()
+            {
+                if (performance.now() >= delaiAffichage) {
+                    this.context2d.rect(this.x, this.y, this.w, this.h);
+                    this.context2d.fillStyle = color;
+                    this.context2d.fill();
+                }
+            }
+
+            this.deplacerDroite = function(distance)
+            {
+                if (performance.now() >= delaiAffichage) {
+                    this.x += distance;
+                    this.afficheRectangle();
+                }
+            }
+
+            this.estHorsDuCanvas = function()
+            {
+                return this.x >= canvas.width;
+            }
         }
 
-        function affiche() {
-            this.canvas2dContext.beginPath();
-            this.canvas2dContext.rect(this.x, this.y, this.w, this.h);
-            this.canvas2dContext.fillStyle = "red";
-            this.canvas2dContext.fill();
-        }
-
-        function moveRight() {
-            this.x += 10;
-            this.canvas2dContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.affiche();
-        }
-
-        function init() {
-            canvas = document.getElementById("myCanvas");
-            rectangle1 = new rectangle(0, 0, 100, 100, canvas);
-            rectangle2 = new rectangle(0, 150, 100, 100, canvas);
-            rectangle3 = new rectangle(0, 300, 100, 100, canvas);
-            rectangle1.affiche();
-            rectangle2.affiche();
-            rectangle3.affiche();
-
-            setTimeout(function() {
-                let timer = setInterval(function() {
-                    rectangle1.moveRight();
-
-                    if (rectangle1.x >= rectangle1.canvas.width) {
-                        clearInterval(timer);
-                    }
-                }, 100)
-            }, 1000);
-
-            setTimeout(function() {
-                let timer = setInterval(function() {
-                    rectangle2.moveRight();
-
-                    if (rectangle2.x >= rectangle2.canvas.width) {
-                        clearInterval(timer);
-                    }
-                }, 100)
-            }, 2000);
-
-            setTimeout(function() {
-                let timer = setInterval(function() {
-                    rectangle3.moveRight();
-
-                    if (rectangle3.x >= rectangle3.canvas.width) {
-                        clearInterval(timer);
-                    }
-                }, 100)
-            }, 3000);
-        }
-
-        window.addEventListener('load', init);
+        window.addEventListener("load", draw);
         
     </script>
 
