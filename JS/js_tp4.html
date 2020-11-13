@@ -36,14 +36,16 @@
 
     <script type="text/javascript">
 
+        const delaiDebutAnimation = 2000;
+
         function draw()
         {
             const canvas = document.getElementById("myCanvas");
             const context2d = canvas.getContext("2d");
             
-            const rectangle1 = new Rectangle(0, 0, 100, 100, "red", canvas, 1000);
-            const rectangle2 = new Rectangle(0, 150, 100, 100, "red", canvas, 2000);
-            const rectangle3 = new Rectangle(0, 300, 100, 100, "red", canvas, 3000);
+            const rectangle1 = new Rectangle(0, 0, 100, 100, "red", canvas, delaiDebutAnimation + 1000);
+            const rectangle2 = new Rectangle(0, 150, 100, 100, "red", canvas, delaiDebutAnimation + 2000);
+            const rectangle3 = new Rectangle(0, 300, 100, 100, "red", canvas, delaiDebutAnimation + 3000);
 
             rectangle1.afficheRectangle();
             rectangle2.afficheRectangle();
@@ -99,7 +101,11 @@
             }
         }
 
-        window.addEventListener("load", draw);
+        window.addEventListener('load', function()
+            {
+                setTimeout(draw, delaiDebutAnimation);
+            }
+        );
         
     </script>
 
