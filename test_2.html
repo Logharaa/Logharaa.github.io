@@ -31,26 +31,26 @@
 
     <script type="text/javascript">
 
-        function moveSquare()
+        const elem = document.getElementById("animatedElem");
+        const frameTime = 1000 / 60;
+        let lastUpdate = Date.now();
+        let left = 500;
+        let timer = setInterval(tick, 16);
+
+        function tick()
         {
-            const elem = document.getElementById("animatedElem");
-            let left = 500;
-            let timer;
+            let now = Date.now();
+            let deltaTime = now - lastUpdate;
+            lastUpdate = now;
 
-            // Move the element 10px on the right every 16ms
-            timer = setInterval(function ()
-                {
-                    elem.style.left = (left -= 10) + "px";
+            elem.style.left = (left -= 10 * deltaTime / 20) + "px";
 
-                    if (left <= 0) {
-                        clearInterval(timer);
-                    }
-                },
-                16
-            );
+            if (left <= 0) {
+                clearInterval(timer);
+            }
         }
 
-        function pausecomp(millis) 
+        function pausecomp(millis)
 		{
 			var date = new Date();
 			var curDate = null;
@@ -59,7 +59,7 @@
 			} while(curDate-date < millis);
 		}
 
-        window.addEventListener("load", moveSquare);
+        window.addEventListener("load", tick);
 
     </script>
 
