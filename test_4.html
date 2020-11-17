@@ -32,31 +32,32 @@
 
     <script type="text/javascript">
         const elem = document.getElementById("animatedElem");
-        let lastUpdate = Date.now();
         let left = 500;
-        let timer = setInterval(tick, 1000 / 60);
 
-        function tick() {
-            let now = Date.now();
-            let deltaTime = now - lastUpdate;
-            lastUpdate = now;
+        let deltaTime = 0;
+        let lastTimestamp = 0;
 
-            elem.style.left = (left -= 10 * deltaTime / 20) + "px";
+        function start() {
+            requestAnimationFrame(step);
+        }
 
-            if (left <= 0) {
-                clearInterval(timer);
+        function step(timestamp) {
+            deltaTime = timestamp - lastTimestamp;
+            lastTimestamp = timestamp;
+
+            elem.style.left = (left -= 10 * deltaTime / 50) + "px";
+
+            if (left > 0) {
+                if (deltaTime < 100) {
+                    requestAnimationFrame(step);
+                }
+            }
+            else {
+                elem.style.left = 0;
             }
         }
 
-        function pausecomp(millis) {
-            var date = new Date();
-            var curDate = null;
-            do {
-                curDate = new Date();
-            } while (curDate - date < millis);
-        }
-
-        window.addEventListener("load", tick);
+        window.addEventListener("load", start);
     </script>
 
 </body>
