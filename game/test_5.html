@@ -39,15 +39,14 @@
         const canvas = document.getElementById("myCanvas");
         window.addEventListener("keydown", keyPressed, true);
         const canvasContext = canvas.getContext("2d");
-
-        let tabKeys = [];
         
         const nbSpritesWidth = 4;
         const nbSpritesHeight = 4;
         const playerSpeed = 10;
-        const player = new Player(64, 64, 0, 0, 128, 128, "assets/sprite.png", "right");
-        player.updateSprite();
+        const animationSpeed = 15;
         let nbElapsedFrames = 0;
+        let lastKeyPressed;
+        const player = new Player(256, 128, 0, 0, 128, 128, "assets/sprite.png");
 
         function mainLoop()
         {
@@ -58,40 +57,17 @@
         function updateGame()
         {
             nbElapsedFrames++;
-
-            // Mouvements
-            lastKeyPressed = tabKeys[0];
-            switch (lastKeyPressed) {
-                case "left":
-                    player.updateDirection("left");
-                    if (player.x > 0) player.x -= playerSpeed;
-                    break;
-                case "up":
-                    player.updateDirection("up");
-                    if (player.y > 0) player.y -= playerSpeed;
-                    break;
-                case "right":
-                    player.updateDirection("right");
-                    if (player.x < canvas.width - 128) player.x += playerSpeed;
-                    break;
-                case "down":
-                    player.updateDirection("down");
-                    if (player.y < canvas.height - 128) player.y += playerSpeed;
-                    break;
-            }
-
-            tabKeys[0] = null; // La dernière entrée a été lue donc on l'efface
-
-            // Animation
-            if (nbElapsedFrames === 12) {
-                player.updateSprite();
-                nbElapsedFrames = 0;
-            }
+            player.update();
         }
 
         function drawGame()
         {
+            // On nettoie le canvas
             canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+            // Dessin du sol
+            canvasContext.fillStyle = "lightslategray";
+            canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+            // Dessin du personnage
             player.draw();
         }
 
@@ -105,23 +81,23 @@
 
             switch (code) {
                 case 37:
-                    tabKeys[0] = "left";
+                    lastKeyPressed = "left";
                     break;
                 case 38:
-                    tabKeys[0] = "up";
+                    lastKeyPressed = "up";
                     break;
                 case 39:
-                    tabKeys[0] = "right";
+                    lastKeyPressed = "right";
                     break;
                 case 40:
-                    tabKeys[0] = "down";
+                    lastKeyPressed = "down";
                     break;
             }
 
             event.preventDefault();
         }
 
-        function Player(x, y, rectX, rectY, rectW, rectH, imgSrc, direction)
+        function Player(x, y, rectX, rectY, rectW, rectH, imgSrc)
         {
             this.img = new Image();
             this.img.src = imgSrc;
@@ -132,7 +108,7 @@
             this.rectW = rectW;
             this.rectH = rectH;
             this.currentSprite = 0;
-            this.direction = direction;
+            this.direction = "left";
             this.context2d = canvasContext;
 
             this.draw = function()
@@ -166,9 +142,49 @@
                 }
             }
 
-            this.updateDirection = function(newDirection)
+            this.update = function()
             {
-                this.direction = newDirection;
+                // Mouvements
+                switch (lastKeyPressed) {
+                    case "left":
+                        this.direction = lastKeyPressed;
+                        if (this.x > 0) this.x -= playerSpeed;
+                        // Animation
+                        if (nbElapsedFrames >= animationSpeed) {
+                            this.updateSprite();
+                            nbElapsedFrames = 0;
+                        }
+                        break;
+                    case "up":
+                        this.direction = lastKeyPressed;
+                        if (this.y > 0) this.y -= playerSpeed;
+                        // Animation
+                        if (nbElapsedFrames >= animationSpeed) {
+                            this.updateSprite();
+                            nbElapsedFrames = 0;
+                        }
+                        break;
+                    case "right":
+                        this.direction = lastKeyPressed;
+                        if (this.x < canvas.width - 128) this.x += playerSpeed;
+                        // Animation
+                        if (nbElapsedFrames >= animationSpeed) {
+                            this.updateSprite();
+                            nbElapsedFrames = 0;
+                        }
+                        break;
+                    case "down":
+                        this.direction = lastKeyPressed;
+                        if (this.y < canvas.height - 128) this.y += playerSpeed;
+                        // Animation
+                        if (nbElapsedFrames >= animationSpeed) {
+                            this.updateSprite();
+                            nbElapsedFrames = 0;
+                        }
+                        break;
+                }
+
+                lastKeyPressed = null; // La dernière entrée a été traitée donc on l'efface
             }
         }
 
