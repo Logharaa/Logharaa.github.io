@@ -42,12 +42,10 @@
 
         let tabKeys = [];
         
-        const imgWidth = 512;
-        const imgHeight = 512;
         const nbSpritesWidth = 4;
         const nbSpritesHeight = 4;
         const playerSpeed = 10;
-        const player = new Player(64, 64, 0, 0, imgWidth / nbSpritesWidth, imgHeight / nbSpritesHeight, "assets/sprite.png", "right");
+        const player = new Player(64, 64, 0, 0, 128, 128, "assets/sprite.png", "right");
         player.updateSprite();
         let nbElapsedFrames = 0;
 
@@ -150,20 +148,20 @@
                     this.currentSprite = 0;
                 }
 
-                this.rectX = this.currentSprite * (imgWidth / nbSpritesWidth);
+                this.rectX = this.currentSprite * (this.img.width / nbSpritesWidth);
 
                 switch (this.direction) {
                     case "left":
-                        this.rectY = imgHeight / nbSpritesHeight * 0;
+                        this.rectY = this.img.height / nbSpritesHeight * 0;
                         break;
                     case "up":
-                        this.rectY = imgHeight / nbSpritesHeight * 3;
+                        this.rectY = this.img.height / nbSpritesHeight * 3;
                         break;
                     case "right":
-                        this.rectY = imgHeight / nbSpritesHeight * 1;
+                        this.rectY = this.img.height / nbSpritesHeight * 1;
                         break;
                     case "down":
-                        this.rectY = imgHeight / nbSpritesHeight * 2;
+                        this.rectY = this.img.height / nbSpritesHeight * 2;
                         break;
                 }
             }
