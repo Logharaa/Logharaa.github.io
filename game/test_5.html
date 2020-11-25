@@ -46,6 +46,7 @@
         const imgHeight = 512;
         const nbSpritesWidth = 4;
         const nbSpritesHeight = 4;
+        const playerSpeed = 10;
         const player = new Player(64, 64, 0, 0, imgWidth / nbSpritesWidth, imgHeight / nbSpritesHeight, "assets/sprite.png", "right");
 
         let nbElapsedFrames = 0;
@@ -67,26 +68,26 @@
             switch (lastKeyPressed) {
                 case "left":
                     player.updateDirection("left");
-                    if (player.x > 0) player.x -= 8;
+                    if (player.x > 0) player.x -= playerSpeed;
                     break;
                 case "up":
                     player.updateDirection("up");
-                    if (player.y > 0) player.y -= 8;
+                    if (player.y > 0) player.y -= playerSpeed;
                     break;
                 case "right":
                     player.updateDirection("right");
-                    if (player.x < canvas.width - 128) player.x += 8;
+                    if (player.x < canvas.width - 128) player.x += playerSpeed;
                     break;
                 case "down":
                     player.updateDirection("down");
-                    if (player.y < canvas.height - 128) player.y += 8;
+                    if (player.y < canvas.height - 128) player.y += playerSpeed;
                     break;
             }
 
             tabKeys[0] = null; // La dernière entrée a été lue donc on l'efface
 
             // Animation
-            if (nbElapsedFrames === 14) {
+            if (nbElapsedFrames === 12) {
                 player.updateSprite();
                 nbElapsedFrames = 0;
             }
