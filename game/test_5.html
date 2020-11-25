@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>JS avancé</title>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+
+<body>
+    <header>
+        <h1>JS avancé</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="../index.html">Accueil</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <article>
+            <canvas id="myCanvas" width="1000" height="500"></canvas>
+        </article>
+    </main>
+
+    <footer>
+        <p>© 2020 Gaël Meheust - Tous droits réservés.</p>
+    </footer>
+
+    <script type="text/javascript">
+
+        let animFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || null;
+        if (animFrame === null) {
+            throw "Impossible d'utiliser requestAnimationFrame (animFrame === null)";
+        }
+
+        const canvas = document.getElementById("myCanvas");
+        window.addEventListener("keydown", keyPressed, true);
+        const canvasContext = canvas.getContext("2d");
+
+        let tabKeys = [];
+        
+        const imgWidth = 512;
+        const imgHeight = 512;
+        const nbSpritesWidth = 4;
+        const nbSpritesHeight = 4;
+        const player = new Player(64, 64, 0, 0, imgWidth / nbSpritesWidth, imgHeight / nbSpritesHeight, "assets/sprite.png", "right");
+
+        let nbElapsedFrames = 0;
+
+        console.log(canvas.width);
+
+        function mainLoop()
+        {
+            updateGame();
+            drawGame();
+        }
+
+        function updateGame()
+        {
+            nbElapsedFrames++;
+
+            // Mouvements
+            lastKeyPressed = tabKeys[0];
+            switch (lastKeyPressed) {
+                case "left":
+                    player.updateDirection("left");
+                    if (player.x > 0) player.x -= 8;
+                    break;
+                case "up":
+                    player.updateDirection("up");
+                    if (player.y > 0) player.y -= 8;
+                    break;
+                case "right":
+                    player.updateDirection("right");
+                    if (player.x < canvas.width - 128) player.x += 8;
+                    break;
+                case "down":
+                    player.updateDirection("down");
+                    if (player.y < canvas.height - 128) player.y += 8;
+                    break;
+            }
+
+            tabKeys[0] = null; // La dernière entrée a été lue donc on l'efface
+
+            // Animation
+            if (nbElapsedFrames === 14) {
+                player.updateSprite();
+                nbElapsedFrames = 0;
+            }
+        }
+
+        function drawGame()
+        {
+            canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+            player.draw();
+        }
+
+        function keyPressed(event)
+        {
+            if (event.defaultPrevented) {
+                return;
+            }
+            
+            const code = event.keyCode;
+
+            switch (code) {
+                case 37:
+                    tabKeys[0] = "left";
+                    break;
+                case 38:
+                    tabKeys[0] = "up";
+                    break;
+                case 39:
+                    tabKeys[0] = "right";
+                    break;
+                case 40:
+                    tabKeys[0] = "down";
+                    break;
+            }
+
+            event.preventDefault();
+        }
+
+        function Player(x, y, rectX, rectY, rectW, rectH, imgSrc, direction)
+        {
+            this.img = new Image();
+            this.img.src = imgSrc;
+            this.x = x;
+            this.y = y;
+            this.rectX = rectX;
+            this.rectY = rectY;
+            this.rectW = rectW;
+            this.rectH = rectH;
+            this.currentSprite = 0;
+            this.direction = direction;
+            this.context2d = canvasContext;
+
+            this.draw = function()
+            {
+                this.context2d.drawImage(this.img, this.rectX, this.rectY, this.rectW, this.rectH, this.x, this.y, this.rectW, this.rectH);
+            }
+
+            this.updateSprite = function()
+            {
+                this.currentSprite++;
+
+                if (this.currentSprite === nbSpritesWidth) {
+                    this.currentSprite = 0;
+                }
+
+                this.rectX = this.currentSprite * (imgWidth / nbSpritesWidth);
+
+                switch (this.direction) {
+                    case "left":
+                        this.rectY = imgHeight / nbSpritesHeight * 0;
+                        break;
+                    case "up":
+                        this.rectY = imgHeight / nbSpritesHeight * 3;
+                        break;
+                    case "right":
+                        this.rectY = imgHeight / nbSpritesHeight * 1;
+                        break;
+                    case "down":
+                        this.rectY = imgHeight / nbSpritesHeight * 2;
+                        break;
+                }
+            }
+
+            this.updateDirection = function(newDirection)
+            {
+                this.direction = newDirection;
+            }
+        }
+
+        function recursiveAnim()
+        {
+            mainLoop();
+
+            animFrame(recursiveAnim);
+        }
+
+        window.addEventListener("load", recursiveAnim);
+    </script>
+
+</body>
+
+</html>
