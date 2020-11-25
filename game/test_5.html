@@ -48,10 +48,8 @@
         const nbSpritesHeight = 4;
         const playerSpeed = 10;
         const player = new Player(64, 64, 0, 0, imgWidth / nbSpritesWidth, imgHeight / nbSpritesHeight, "assets/sprite.png", "right");
-
+        player.updateSprite();
         let nbElapsedFrames = 0;
-
-        console.log(canvas.width);
 
         function mainLoop()
         {
