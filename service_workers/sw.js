@@ -10,6 +10,8 @@ this.addEventListener("install", function (event) {
 });
 
 this.addEventListener("fetch", function(event) {
+    console.log(event);
+    console.log(event.request);
     event.respondWith(caches.match(event.request).then(function(response) {
         if (response !== undefined) {
             return response;
