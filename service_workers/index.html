@@ -21,7 +21,7 @@
 
     <main>
         <article>
-            <div id="cal"></div>
+            <div id="calender"></div>
         </article>
     </main>
 
@@ -39,7 +39,7 @@
         };
 
         if (window.fetch) {
-            let maDiv = document.getElementById("cal");
+            let maDiv = document.getElementById("calender");
 
             fetch("https://cors-anywhere.herokuapp.com/https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/9EYlGR3a.shu")
             .then(function(response) {
