@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Service Workers</title>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Service Workers</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="../index.html">Accueil</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <article>
+            <div id="cal"></div>
+        </article>
+    </main>
+
+    <footer>
+        <p>© 2020 Gaël Meheust - Tous droits réservés.</p>
+    </footer>
+
+    <script type="text/javascript">
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').then(function (reg) {
+                console.log('Registration succeeded. Scope is ' + reg.scope);
+            }).catch(function (error) {
+                console.log('Registration failed with ' + error);
+            });
+        };
+
+        if (window.fetch) {
+            const maDiv = document.getElementById("cal");
+
+            fetch("https://cors-anywhere.herokuapp.com/https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/9EYlGR3a.shu")
+            .then(function(response) {
+                return response.text();
+            })
+            .then(function(cal) {
+                maDiv.innerHTML = cal;
+            });
+        }
+    </script>
+
+</body>
+
+</html>
