@@ -39,12 +39,15 @@
         };
 
         if (window.fetch) {
-            const maDiv = document.getElementById("cal");
+            let maDiv = document.getElementById("cal");
 
             fetch("https://cors-anywhere.herokuapp.com/https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/9EYlGR3a.shu")
             .then(function(response) {
-                maDiv.innerHTML = response.text();
+                return response.text();
             })
+            .then(function(cal) {
+                maDiv.innerHTML = cal;
+            });
         }
     </script>
 
